@@ -1,0 +1,45 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    chronic (0.10.2)
+    date (3.3.3)
+    logger (1.5.3)
+    mail (2.8.1)
+      mini_mime (>= 0.1.1)
+      net-imap
+      net-pop
+      net-smtp
+    mini_mime (1.1.5)
+    net-imap (0.4.1)
+      date
+      net-protocol
+    net-pop (0.1.2)
+      net-protocol
+    net-protocol (0.2.1)
+      timeout
+    net-smtp (0.4.0)
+      net-protocol
+    pony (1.13.1)
+      mail (>= 2.0)
+    rexml (3.2.6)
+    rubyzip (2.3.2)
+    selenium-webdriver (4.14.0)
+      rexml (~> 3.2, >= 3.2.5)
+      rubyzip (>= 1.2.2, < 3.0)
+      websocket (~> 1.0)
+    timeout (0.4.0)
+    websocket (1.2.10)
+    whenever (1.0.0)
+      chronic (>= 0.6.3)
+
+PLATFORMS
+  x86_64-linux
+
+DEPENDENCIES
+  logger
+  pony
+  selenium-webdriver (~> 4.14)
+  whenever
+
+BUNDLED WITH
+   2.4.20
