@@ -19,11 +19,10 @@
 
 # Learn more: http://github.com/javan/whenever
 
-ruby_path = File.join(File.expand_path(File.join(File.dirname(__FILE__),'..')),'website_checker_headless.rb')
+ruby_path = File.join(File.expand_path(File.join(File.dirname(__FILE__),'..')),'rma_website_checker.rb')
 
 set :output, "~/cron_log.log"
 
 every 3.minutes do
-    #command "ruby /home/mar/repos/ruby_automation/website_checker_headless.rb"
     command "ruby #{ruby_path}"
 end
