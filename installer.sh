@@ -39,6 +39,9 @@ ruby rma_website_checker.rb
 echo "Opening html log file..."
 google-chrome logs/selenium_log.html
 
+echo "Making sure selenium script is executable for cron..."
+chmod +x rma_website_checker.rb 
+
 # Step 9: Update the crontab using whenever. This updates the crontab of the user using the schedule.rb file
 echo "Creating cronjob from schedule.rb..."
 whenever --update-crontab
