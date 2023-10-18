@@ -1,20 +1,7 @@
 # ruby_automation Mar Gerolaga - QA Developer application
 
 ## Objective
-The goal is to create a simple automated script that periodically checks the availability of Rate-My-Agent.com and reports any downtime immediately. This project will help ensure the website never goes down and demonstrates your skills in software QA, automation, and basic Ruby scripting.
-
-## Instructions
-1. Write a Ruby script that uses the Selenium web automation framework to periodically visit Rate-My-Agent.com.
-2. Implement a test function to check if the website is up and running correctly. You get to decide what the function tests for.
-3. Provide a README.md file with instructions on how to set up and run the script.
-4. Write a cron job line, as part of the installation instructions, to schedule the script to run every 3 minutes.
-5. If the script encounters any issues with the website, such as a 404 error or content mismatch, it must send an email notification to alerts@rate-my-agent.com. You get to decide what the email notification says, what subject it has, etc.
-6. The script should also log the status of each check in a text file, including timestamps.
-7. Feel free to include explanations of the code and design choices you've made as comments in the script
-
-Bonus Tasks:
-1. Instead of a text file, make it an html file
-2. Create a bash script to automate the deployment and scheduling of the Ruby script.
+The goal is to create a simple automated script that periodically checks the availability of Rate-My-Agent.com and reports any downtime immediately.
 
 ## Installation
 Note: A Linux system is considered when making the instructions below.
@@ -34,16 +21,16 @@ Please update your package repositories before proceeding.
 sudo apt update
 
 1. Install the latest version of chromedriver
-    1.1 Navigate to https://googlechromelabs.github.io/chrome-for-testing/#stable and download the chromedriver for v118
-    1.2 Unzip the downloaded file
+    1. Navigate to https://googlechromelabs.github.io/chrome-for-testing/#stable and download the chromedriver for v118
+    2. Unzip the downloaded file
         unzip chromedriver_linux64.zip 
 
-    1.3 Move the chromedriver file to /usr/bin/chromedriver. Execute the following commands:
+    3. Move the chromedriver file to /usr/bin/chromedriver. Execute the following commands:
         sudo mv chromedriver /usr/bin/chromedriver
         sudo chown root:root /usr/bin/chromedriver 
         sudo chmod +x /usr/bin/chromedriver
 
-    1.4 Run the command to test if chromedriver started successfully.
+    4. Run the command to test if chromedriver started successfully.
         chromedriver --url-base=/wd/hub
 
 2. Clone the repository to a directory of your choice
@@ -52,40 +39,40 @@ git clone https://github.com/margerolaga/ruby_automation.git
 3. Navigate to the directory the repo was cloned
 cd ruby_automation
 
-4. Check the files in the repo:
-|---/config
-|   |---schedule.rb
-|---/logs
-|   |---selenium_log.html
-|---Gemfile
-|---Gemfile.lock
-|---website_checker_headless.rb
-|---README.md
+4. Check the files in the repo:<br />
+|---/config<br />
+|   |---schedule.rb<br />
+|---/logs<br />
+|   |---selenium_log.html<br />
+|---Gemfile<br />
+|---Gemfile.lock<br />
+|---rma_website_checker.rb<br />
+|---README.md<br />
 
-5. Install bundler in the machine
+5. Install bundler in the machine<br />
 gem install bundler
 
-6. Install all the required gems referred to in the Gemfile
+6. Install all the required gems referred to in the Gemfile<br />
 bundle install
 
-7. Install the "Whenever" gem. This is because the installation using the bundle install command is not enough to install the methods needed to run this gem.
+7. Install the "Whenever" gem. This is because the installation using the bundle install command is not enough to install the methods needed to run this gem.<br />
 gem install whenever
 
-8. Try and run the selenium program once to ensure everything is working.
+8. Try and run the selenium program once to ensure everything is working.<br />
 ruby website_checker_headless.rb
 
 This command will not open a chrome tab. To know if the program was successful, check the /logs/selenium_log.html file.
-Use the command below to open it on chrome
-google-chrome logs/selenium_log.html
+Use the command below to open it on chrome<br />
+google-chrome logs/selenium_log.html<br /><br />
 
 It should have the logs for when the program was ran and it should say the website is up. 
 If you encounter errors, please don't hesitate to contact Mar.
 
-9. Create the cron job to automate running the ruby program. Here we will use the "Whenever" gem for Ruby. Perform the commands:
+9. Create the cron job to automate running the ruby program. Here we will use the "Whenever" gem for Ruby. Perform the command:<br />
 whenever --update-crontab
 
-10. Check the crontab for the created cron job
-crontab -l
+10. Check the crontab for the created cron job<br />
+crontab -l<br /><br />
 
 It should show that the cron job will run every 3rd minute within the hour and should lead to the website_checker_headless.rb file.
 
@@ -93,6 +80,8 @@ It should show that the cron job will run every 3rd minute within the hour and s
 
 12. In 3 minutes, you should be able to check the /logs/selenium_log.html file for the latest run of the program.
 
-13. To test a down website, open the website_checker_headless.rb in a text editor. 
+13. To test a down website, open the website_checker_headless.rb in a text editor. <br />
 Edit the website_url object. Some sample websites that are down must be indicated in the comments above the object.
 You can find this variable in line 37 of website_checker_headless.rb.
+
+14. In line 47 of website_checker_headless.rb, 
