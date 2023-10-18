@@ -8,7 +8,7 @@ require 'pony'
 # Here we create an options object indicating we use the headless version of chromedriver.
 # A headless web browser is just a browser with no display.
 # After days of debugging and troubleshooting, if a non-headless version of chromedriver is used,
-# the cron job cannot run. It send an error that the chrome cannot be opened.
+# the cron job cannot run. It send an error that chrome cannot be opened.
 options = Selenium::WebDriver::Options.chrome(args: ['--headless=new'])
 # Here we create a new WebDriver instance and use chromedriver with the options we just set
 driver = Selenium::WebDriver.for :chrome, options: options
@@ -19,19 +19,20 @@ driver.manage.timeouts.implicit_wait = 10
 
 # This initializes a new logger as the program begins.
 # To make it simple, I researched and used some File commands here. The __FILE__ command comes from Ruby and gets the ruby scripts full path.
-# From the Ruby file's full path, we extract the directory name using File.dirname(). 
+# From the Ruby file's full path, we extract the directory name using File.dirname().
 # With File.join, we construct a path from the ruby directory to the logs directory and then finally to the selenium_log.html log.
 # Finally, with File.expand_path(), we create an absolute path from the relative path created with File.join(), just to make sure an absolute path is created.
 log_file_path = File.expand_path(File.join(File.dirname(__FILE__), 'logs', 'selenium_log.html'))
 logger = Logger.new(log_file_path)
-# Here, we changed the logger's overall format to have html tags and still display the severity, datetime and the error msg. 
+# Here, we changed the logger's overall format to have html tags and still display the severity, datetime and the error msg.
 logger.formatter = proc do |severity, datetime, progname, msg|
     "<p><strong>#{datetime.strftime('%Y-%m-%d %H:%M:%S')} [#{severity}]:</strong> #{msg}</p>\n"
   end
 
 # You can indicate other websites here to test websites that are down.
 # Main website - https://rate-my-agent.com/
-# Often Down Website - https://www.irctc.co.in/ or http://aol.sportingnews.com/
+# Often Down Website - http://aol.sportingnews.com/
+# Wrong Title Website - https://www.irctc.co.in/
 # More down websites can be found in https://www.isitdownrightnow.com/
 website_url = "https://rate-my-agent.com/"
 
@@ -63,7 +64,7 @@ begin
     # This opens the website indicated in the website_url variable.
     driver.get website_url
     # To check if a website is up, there are several checks we can do. I will include all checks I can think of to see if a website is up.
-    
+
     # First we can check if the page is showing the correct title.
     expected_title = "❤️Top Rated Real Estate Agents & Reviews of the Best Realtors in Canada & USA in 2022"
     page_title = driver.title
@@ -76,19 +77,19 @@ begin
         timestamp = Time.now.strftime("%Y-%m-%d %H:%M:%S")
 
         logger.warn("Website is up BUT something is wrong with the page title. Please check!")
-        
+
         website_title_subject = "Selenium Test Result: Page Title Mismatch Detected"
-        website_title_body = "This is an automated email. The result of a Selenium test indicates a page title mismatch. 
-        
+        website_title_body = "This is an automated email. The result of a Selenium test indicates a page title mismatch.
+
         Details:
         - Expected Title: #{expected_title}
         - Actual Title: #{page_title}
         - Test Timestamp: #{timestamp}
         - Test URL: #{website_url}
-        
+
         Action:
         - Check the website's title.
-        
+
         Thank you."
 
         # A timestamp is included in the email content so that anyone checkign can immediately find the error on the logs.
@@ -153,8 +154,8 @@ Thank you for your attention to this matter."
     send_error_email(website_down_subject,website_down_body)
 
 # The Errno::ECONNREFUSED is usually covered by the Selenium::WebDriver::Error::UnknownError exception, but I just left this one here
-# to ensure it is still covered in an edge case. Further down the line, if this exception is never triggered, we can remove this rescue.
-rescue Errno::ECONNREFUSED => e 
+# to ensure robustness. Further down the line, if this exception is never triggered, we can remove this rescue.
+rescue Errno::ECONNREFUSED => e
 
     # puts "Errno::ECONNREFUSED: Website is down!"
 
@@ -192,20 +193,17 @@ rescue Selenium::WebDriver::Error::NoSuchElementError => e
 
     logger.error("Missing Element found on homepage.")
     logger.error(e)
-    
+
     missing_element_subject = "Selenium Test Error: Element is missing"
     missing_element_body = "This is an automated email. Please do not reply.
-    
-    A Selenium test encountered a No Such Element error during execution. 
-    
+
+    A Selenium test encountered a No Such Element error during execution.
+
     Action:
     - Check the logs for errors in #{timestamp}.
     - Ensure page functionality.
-    
+
     Thank you."
 
     send_error_email(missing_element_subject,missing_element_body)
 end
-
-
-
