@@ -19,10 +19,11 @@
 
 # Learn more: http://github.com/javan/whenever
 
+ruby_loc = %x{which ruby}.strip
 ruby_path = File.join(File.expand_path(File.join(File.dirname(__FILE__),'..')),'rma_website_checker.rb')
 
 set :output, "~/cron_log.log"
 
 every 3.minutes do
-    command "ruby #{ruby_path}"
+    command "#{ruby_loc} #{ruby_path}"
 end
