@@ -59,7 +59,7 @@ bundle install
 gem install whenever
 
 8. Try and run the selenium program once to ensure everything is working.<br />
-ruby website_checker_headless.rb
+ruby rma_website_checker.rb
 
 This command will not open a chrome tab. To know if the program was successful, check the /logs/selenium_log.html file.
 Use the command below to open it on chrome<br />
@@ -74,14 +74,15 @@ whenever --update-crontab
 10. Check the crontab for the created cron job<br />
 crontab -l<br /><br />
 
-It should show that the cron job will run every 3rd minute within the hour and should lead to the website_checker_headless.rb file.
+It should show that the cron job will run every 3rd minute within the hour and should lead to the rma_website_checker.rb file.
 
 11. Wait for the Ruby program to run.
 
 12. In 3 minutes, you should be able to check the /logs/selenium_log.html file for the latest run of the program.
 
-13. To test a down website, open the website_checker_headless.rb in a text editor. <br />
+13. To test a down website, open the rma_website_checker.rb in a text editor. <br />
 Edit the website_url object. Some sample websites that are down must be indicated in the comments above the object.
-You can find this variable in line 37 of website_checker_headless.rb.
+You can find this variable in line 37 of rma_website_checker.rb.
 
-14. In line 47 of website_checker_headless.rb, 
+14. In line 54 and 55 of rma_website_checker.rb, you can use your own gmail account to send the email from. I just created the email account for the purpose of this
+application.
