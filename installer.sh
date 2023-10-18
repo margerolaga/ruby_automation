@@ -26,7 +26,7 @@ bundle install
 gem install whenever
 
 # Step 7: Run the Ruby program to check if it works
-ruby website_checker_headless.rb
+ruby rma_website_checker.rb
 
 # Step 8: Open the log file to check if the program ran successfully
 google-chrome logs/selenium_log.html
